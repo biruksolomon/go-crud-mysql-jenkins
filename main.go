@@ -4,11 +4,15 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/biruksolomon/go-crud-portfolio/handlers"
 	"github.com/gorilla/mux"
+
+	"github.com/biruksolomon/go-crud-portfolio/config"
+	"github.com/biruksolomon/go-crud-portfolio/handlers"
 )
 
 func main() {
+	config.ConnectDB()
+
 	router := mux.NewRouter()
 
 	router.HandleFunc("/items", handlers.GetItems).Methods("GET")
@@ -17,6 +21,6 @@ func main() {
 	router.HandleFunc("/items/{id}", handlers.UpdateItem).Methods("PUT")
 	router.HandleFunc("/items/{id}", handlers.DeleteItem).Methods("DELETE")
 
-	log.Println("Server started at :8080")
-	log.Fatal(http.ListenAndServe(":8080", router))
+	log.Println("🚀 Server running on :8381")
+	log.Fatal(http.ListenAndServe(":8381", router))
 }
